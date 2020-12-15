@@ -41,12 +41,14 @@
                   <p>Nuevo registro</p>
                 </a>
               </li>
+              <?php if($_SESSION['tipo'] != 'operador'){ ?>
               <li class="nav-item">
                 <a href="../control/compras.control.php" class="nav-link">
                   <i class="fas fa-book nav-icon"></i>
                   <p>Compras</p>
                 </a>
               </li>
+              <?php } ?>
             </ul>
           </li>
         </ul>
