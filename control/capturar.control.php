@@ -20,6 +20,7 @@ if(@!$_SESSION['usuario']){
 
         /* Mostrar ID */
         $xcrud->show_primary_ai_field(true);
+        $xcrud->show_primary_ai_column(true);
 
         /* Campos de solo lectura */
         $xcrud->readonly('id,user,stamp');
@@ -71,7 +72,7 @@ if(@!$_SESSION['usuario']){
         $xcrud->pass_var('user', $_SESSION['usuario']);    
 
 
-        require('../vistas/views/capturar.view.php');
+        require("../vistas/views/capturar.view.php");
 
     }
 

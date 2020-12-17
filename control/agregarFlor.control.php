@@ -50,9 +50,17 @@ if(@!$_SESSION['usuario']){
         $xcrud->validation_required('proveedor',2);
         $xcrud->validation_required('estatus',2);
 
+        /* Highligt */
+        $xcrud->highlight('estatus','=','Pedido','#c0f0cd');
+        $xcrud->highlight('estatus','=','Entregado','#c0e4f0');
+        $xcrud->highlight('estatus','=','Cancelado','#f7cdf3');
+
         /* No puede editar los solicitados en pedido */
         $xcrud->unset_edit(true,'estatus','!=','Cotizado');
         $xcrud->unset_remove(true,'estatus','!=','Cotizado');
+
+        /* quitamos caracteres extraños para no afectar el CSV */
+        $xcrud->validation_pattern('color', 'alpha');
 
 
         /* Cambiar nombre de la tabla */
@@ -103,7 +111,7 @@ if(@!$_SESSION['usuario']){
         $xcrud->pass_var('user', $_SESSION['usuario']);  
 
 
-        require('../vistas/views/agregarFlor.view.php');
+        require("../vistas/views/agregarFlor.view.php");
 
     }
 

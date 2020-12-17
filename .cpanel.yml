@@ -3,8 +3,4 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/hyrumtech/flores.planner1events.com/
     - /bin/cp -R control $DEPLOYPATH
-    - /bin/cp -R funciones $DEPLOYPATH
-    - /bin/cp -R uploads $DEPLOYPATH
-    - /bin/cp -R vistas $DEPLOYPATH
-    - /bin/cp -R xcrud $DEPLOYPATH
     - /bin/cp -R index.php $DEPLOYPATH
