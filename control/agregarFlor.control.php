@@ -1,4 +1,3 @@
-<!-- Control de captura de items -->
 <?php
 session_start();
 include('../xcrud/xcrud.php');
@@ -69,7 +68,7 @@ if(@!$_SESSION['usuario']){
         /* Listas de campos */
         $xcrud->change_type('unidad','select','black,white',array('values'=>'Pieza,Caja,Paquete'));
         $xcrud->change_type('estatus','select','black,white',array('values'=>'-,Cotizado,Solicitado'));
-        $xcrud->change_type('flor','select','black,white',array(
+        /* $xcrud->change_type('flor','select','black,white',array(
         'values'=>'
             -,
             CRASPEDIA,
@@ -81,13 +80,18 @@ if(@!$_SESSION['usuario']){
             ROSA,
             ROSA DE JARDIN,
             [MATERIALES]
-        '));
+        ')); */
         $xcrud->change_type('proveedor','select','black,white',array(
         'values'=>'
             -,
-            Chiltepec,
-            Proveedor 2,
-            Proveedor 3
+            FLORES DE MEXICO ( SRA. MAURA ),
+            FLORES LA FINCA,
+            FLORES ANDREA ( CECILIA ),
+            CHILTEPEC,
+            FLORES DE HOLANDA,
+            EUROFLORES,
+            FLORANET,
+            IMEX
         '));
 
         /* Monedas */

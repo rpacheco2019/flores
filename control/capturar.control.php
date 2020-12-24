@@ -1,4 +1,3 @@
-<!-- Control de captura de items -->
 <?php
 session_start();
 include('../xcrud/xcrud.php');

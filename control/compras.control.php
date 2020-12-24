@@ -1,4 +1,3 @@
-<!-- Control de captura de items -->
 <?php
 session_start();
 include('../xcrud/xcrud.php');
@@ -75,10 +74,15 @@ if(@!$_SESSION['usuario']){
         /* Proveedores para cambio en compras */
         $xcrud->change_type('registroflores.proveedor','select','black,white',array(
             'values'=>'
-                -,
-                Chiltepec,
-                Flores del campo,
-                Flamingos
+            -,
+            FLORES DE MEXICO ( SRA. MAURA ),
+            FLORES LA FINCA,
+            FLORES ANDREA ( CECILIA ),
+            CHILTEPEC,
+            FLORES DE HOLANDA,
+            EUROFLORES,
+            FLORANET,
+            IMEX
             '));
         
         /* No puede modificar despues de poner entregado */
