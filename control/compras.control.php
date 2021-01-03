@@ -40,12 +40,14 @@ if(@!$_SESSION['usuario']){
         $xcrud->validation_required('estatus',2);
 
         /* Highligt */
-        $xcrud->highlight('estatus','=','Pedido','#c0f0cd');
-        $xcrud->highlight('estatus','=','Entregado','#c0e4f0');
+        $xcrud->highlight('estatus','=','Pedido','#fa9973');
+        $xcrud->highlight('estatus','=','Entregado','#86f584');
         $xcrud->highlight('estatus','=','Cancelado','#f7cdf3');
+        $xcrud->highlight('estatus','=','Cotizado','#ebe9e4');
+        $xcrud->highlight('estatus','=','Solicitado','#f5c651');
 
         /* Campos de solo lectura */
-        $xcrud->readonly('idItem,idRegistro,flor,color,unidad,cantidadFlor,cantidadTotal,precio,precioTotal,user,stamp,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,registroevento.hotel,registroevento.cantidadItem,registroevento.descripcionItem,registroevento.comentarioItem,registroevento.imagen,registroevento.user,registroevento.stamp');
+        $xcrud->readonly('idItem,idRegistro,flor,color,unidad,cantidadFlor,cantidadTotal,precioPorFlor,precio,precioTotal,user,stamp,registroevento.estatus,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,registroevento.hotel,registroevento.cantidadItem,registroevento.descripcionItem,registroevento.comentarioItem,registroevento.imagen,registroevento.user,registroevento.stamp');
 
         /* Quitar numero de fila */
         $xcrud->unset_numbers();
@@ -69,7 +71,7 @@ if(@!$_SESSION['usuario']){
             $xcrud->modal('registroevento.imagen');
 
         /* Lista de opciones de solicitud para compras */
-        $xcrud->change_type('estatus','select','black,white',array('values'=>'-,Solicitado,Pedido,Entregado,Cancelado'));
+        $xcrud->change_type('estatus','select','black,white',array('values'=>'-,Pedido,Entregado,Cancelado'));
 
         /* Proveedores para cambio en compras */
         $xcrud->change_type('registroflores.proveedor','select','black,white',array(

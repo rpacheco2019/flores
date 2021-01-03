@@ -1,7 +1,7 @@
 <!-- jQuery -->
 <!-- <script src="../vistas/plugins/jquery/jquery.min.js"></script> -->
 <!-- Bootstrap 4 -->
-<script src="../vistas/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="../vistas/plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 <!-- DataTables -->
 <script src="../vistas/plugins/datatables/jquery.dataTables.js"></script>
 <script src="../vistas/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>

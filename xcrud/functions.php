@@ -154,7 +154,25 @@ function after_update_test($pd, $pm, $xc)
 } */
 
 function calculosChinos($postdata,$xcrud){
+
     $idOrden = $postdata->get('idRegistro');
+    $cantidadFlor = $postdata->get('cantidadFlor');
+    $precioFlor = $postdata->get('precioPorFlor');
+    
+    $presupuestoItem = $cantidadFlor * $precioFlor;
+
+    $db = Xcrud_db::get_instance();
+    $db->query('SELECT cantidadItem FROM registroevento WHERE id = ' . $idOrden);
+    $cantidadOrigen = $db->row();
+
+    $totalFlores = $cantidadOrigen['cantidadItem'] * $cantidadFlor;
+    $totalPresupuesto = $cantidadOrigen['cantidadItem'] * $presupuestoItem;
+    
+    $postdata->set('cantidadTotal',$totalFlores);
+    $postdata->set('precioTotal',$totalPresupuesto);
+    $postdata->set('precio',$presupuestoItem);
+
+    /* $idOrden = $postdata->get('idRegistro');
     $cantidadFlor = $postdata->get('cantidadFlor');
     $precioFlor = $postdata->get('precio');
     
@@ -165,6 +183,58 @@ function calculosChinos($postdata,$xcrud){
     $totalFlores = $cantidadOrigen['cantidadItem'] * $cantidadFlor;
     $totalPrecio = $cantidadOrigen['cantidadItem'] * $precioFlor;
     $postdata->set('cantidadTotal',$totalFlores);
-    $postdata->set('precioTotal',$totalPrecio);
+    $postdata->set('precioTotal',$totalPrecio); */
 
 }
+
+function setConfirmado($postdata,$primary,$xcrud){
+    
+    $estatusOrden = $postdata->get('estatus');
+
+    if($estatusOrden == "Confirmado"){
+        $db = Xcrud_db::get_instance();
+        $db->query('UPDATE registroflores SET estatus="' .$estatusOrden. '" WHERE idRegistro = ' . $primary);
+    }
+
+}
+
+function automata($postdata,$primary,$xcrud){
+    
+    $estatusOrden = $postdata->get('estatus');
+
+    if($estatusOrden == "Confirmado"){
+        $db = Xcrud_db::get_instance();
+        $db->query('UPDATE registroflores SET estatus="' .$estatusOrden. '" WHERE idRegistro = ' . $primary);
+    }
+
+    $nuevaCantidadArticulos = $postdata->get('cantidadItem');
+
+    $db = Xcrud_db::get_instance();
+    $db->query('SELECT * from registroflores WHERE idRegistro = ' . $primary);
+    $resultados = $db->result();
+
+    $update = Xcrud_db::get_instance();
+
+    foreach ($resultados as $pedido) {
+    
+        $floresTotales = $pedido['cantidadFlor'] * $nuevaCantidadArticulos;
+        $precioTotal = $pedido['precio'] * $nuevaCantidadArticulos; 
+        
+        $update->query('UPDATE registroflores SET cantidadTotal= '. $floresTotales .' WHERE idItem = ' . $pedido['idItem']);
+        $update->query('UPDATE registroflores SET precioTotal= '. $precioTotal .' WHERE idItem = ' . $pedido['idItem']);
+    }
+}
+
+function calculosChinosFollaje($postdata,$xcrud){
+
+    
+    $cantidadFollaje = $postdata->get('cantidad');
+    $precioUnitario = $postdata->get('precioUnitario');
+    
+    $presupuestoTotal = $cantidadFollaje * $precioUnitario;
+    
+    $postdata->set('presupuestoTotal',$presupuestoTotal);
+
+}
+
+
