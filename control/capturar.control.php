@@ -90,6 +90,7 @@ if(@!$_SESSION['usuario']){
         /* -----------------TABLA DE FLORES ------------- */
 
         $orderdetails = $xcrud->nested_table('Flores requeridas','id','registroflores','idRegistro'); // 2nd level
+        $orderdetails->subselect('FX','SELECT cantidadItem FROM registroevento WHERE id = {idRegistro}');
         $orderdetails->default_tab('Agregar Flor');
 
         /* Mostrar ID */
@@ -102,7 +103,7 @@ if(@!$_SESSION['usuario']){
         $orderdetails->readonly('cantidadTotal,precioTotal,user,stamp');
 
         /* Mapeo de columnas */
-        $orderdetails->columns('idItem,flor,color,cantidadFlor,cantidadTotal,unidad,precioPorFlor,precio,precioTotal,proveedor,estatus');
+        $orderdetails->columns('idItem,flor,color,unidad,precioPorFlor,cantidadFlor,precio,FX,cantidadTotal,precioTotal,proveedor,estatus');
 
         /* Quitar numero de fila */
         $orderdetails->unset_numbers();
@@ -113,7 +114,7 @@ if(@!$_SESSION['usuario']){
         $orderdetails->label('precioPorFlor','Precio por flor (MXN)');
         $orderdetails->label('cantidadFlor','Flores por Artículo');
         $orderdetails->label('cantidadTotal','Flores en Total');
-        $orderdetails->label('precioTotal','Precio Total (MXN)');
+        $orderdetails->label('precioTotal','Presupuesto Total (MXN)');
         $orderdetails->label('precio','Presupuesto de Artículo (MXN)');
 
         /* Validaciones */
@@ -129,6 +130,11 @@ if(@!$_SESSION['usuario']){
         $orderdetails->highlight('estatus','=','Cancelado','#f7cdf3');
         $orderdetails->highlight('estatus','=','Cotizado','#ebe9e4');
         $orderdetails->highlight('estatus','=','Solicitado','#f5c651');
+        $orderdetails->highlight('FX','>','0','#dca1f7');
+
+        /* Clases de columna */
+        $orderdetails->column_class('precioTotal','align-center font-bold');
+        $orderdetails->column_class('cantidadTotal','align-center font-bold');
 
         /* No puede editar los solicitados en pedido */
         $orderdetails->unset_edit(true,'estatus','!=','Cotizado');
