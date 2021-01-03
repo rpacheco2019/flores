@@ -28,7 +28,7 @@ if(@!$_SESSION['usuario']){
         $xcrud->label('idRegistro','Orden');
         $xcrud->label('registroevento.folioEP','Folio EP');
         $xcrud->label('registroevento.fechaEvento','Fecha de evento');
-        $xcrud->label('nombreItem','Item');
+        $xcrud->label('registroevento.nombreItem','Articulo');
         $xcrud->label('cantidadItem','Unidades');
         $xcrud->label('cantidadFlor','Flores por Item');
         $xcrud->label('cantidadTotal','Flores totales');
@@ -50,7 +50,7 @@ if(@!$_SESSION['usuario']){
         $xcrud->readonly('idItem,idRegistro,flor,color,unidad,cantidadFlor,cantidadTotal,precioPorFlor,precio,precioTotal,user,stamp,registroevento.estatus,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,registroevento.hotel,registroevento.cantidadItem,registroevento.descripcionItem,registroevento.comentarioItem,registroevento.imagen,registroevento.user,registroevento.stamp');
 
         /* Quitar numero de fila */
-        $xcrud->unset_numbers();
+        /* $xcrud->unset_numbers(); */
 
         /* Mostrar ID en campos */
         $xcrud->show_primary_ai_field(true);
@@ -89,6 +89,48 @@ if(@!$_SESSION['usuario']){
         
         /* No puede modificar despues de poner entregado */
         $xcrud->unset_edit(true,'estatus','=','Entregado');
+
+        /*-------------------------- Tabla de Otros y Follajes ----------------------------------*/
+        $comprasOtros= Xcrud::get_instance()->table('follaje')->unset_remove()->unset_add();
+        $comprasOtros->fields('user,stamp,registroevento.hotel,registroevento.descripcionItem,registroevento.comentarioItem,registroevento.user,registroevento.stamp,registroevento.fechaEvento,registroevento.imagen',true);
+        $comprasOtros->join('idOrden','registroevento','id');
+        $comprasOtros->where('estatus !=','Cotizado');
+
+        /* Nombre de tabla */
+        $comprasOtros->table_name('Follaje y Otros');
+
+        /* Cambiar nombres a las columnas */
+        $comprasOtros->label('id','Pedido');
+        $comprasOtros->label('idOrden','Orden');
+        $comprasOtros->label('registroevento.folioEP','Folio EP');
+        $comprasOtros->label('registroevento.fechaEvento','Fecha de evento');
+        $comprasOtros->label('registroevento.nombreItem','Articulo');
+        $comprasOtros->label('item','Follaje/Otro');
+        $comprasOtros->label('precioUnitario','Precio Unitario');
+        $comprasOtros->label('presupuestoTotal','Presupuesto Total');
+
+        /* Mostrar ID en campos */
+        $comprasOtros->show_primary_ai_field(true);
+        $comprasOtros->show_primary_ai_column(true);
+
+        /* Quitar numeros de fila */
+        /* $comprasOtros->unset_numbers(); */    
+        
+        /* Mapeo de columnas */
+        $comprasOtros->columns('id,idOrden,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,item,cantidad,unidad,precioUnitario,presupuestoTotal,estatus');
+        
+        /* Campos de solo lectura */
+        $comprasOtros->readonly('id,idOrden,item,unidad,cantidad,precioUnitario,presupuestoTotal,notas,registroevento.estatus,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,registroevento.cantidadItem');
+        
+        /* Lista de opciones de solicitud para compras */
+        $comprasOtros->change_type('estatus','select','black,white',array('values'=>'-,Pedido,Entregado,Cancelado'));
+
+        /* Highligt */
+        $comprasOtros->highlight('estatus','=','Pedido','#fa9973');
+        $comprasOtros->highlight('estatus','=','Entregado','#86f584');
+        $comprasOtros->highlight('estatus','=','Cancelado','#f7cdf3');
+        $comprasOtros->highlight('estatus','=','Cotizado','#ebe9e4');
+        $comprasOtros->highlight('estatus','=','Solicitado','#f5c651');
 
         require("../vistas/views/compras.view.php");
 

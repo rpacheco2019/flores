@@ -197,7 +197,7 @@ if(@!$_SESSION['usuario']){
         $follaje->table_name('Follaje y otros');
 
         /* Mapeo de columnas */
-        $follaje->columns('id,item,cantidad,precioUnitario,presupuestoTotal,notas');
+        $follaje->columns('id,item,unidad,cantidad,precioUnitario,presupuestoTotal,notas,estatus');
 
         /* Mostrar ID */
         $follaje->show_primary_ai_field(true);
@@ -216,6 +216,13 @@ if(@!$_SESSION['usuario']){
         $follaje->validation_required('cantidad');
         $follaje->validation_required('precioUnitario');
 
+        /* Highligt */
+        $follaje->highlight('estatus','=','Pedido','#fa9973');
+        $follaje->highlight('estatus','=','Entregado','#86f584');
+        $follaje->highlight('estatus','=','Cancelado','#f7cdf3');
+        $follaje->highlight('estatus','=','Cotizado','#ebe9e4');
+        $follaje->highlight('estatus','=','Solicitado','#f5c651');
+
         /* Monedas */
         $follaje->change_type('precioUnitario', 'price', '0', array('prefix'=>'$'));
         $follaje->change_type('prespuestoTotal', 'price', '0', array('prefix'=>'$'));
@@ -225,6 +232,10 @@ if(@!$_SESSION['usuario']){
         $follaje->label('precioUnitario','Precio unitario');
         $follaje->label('presupuestoTotal','Prespuesto de artículo');
         $follaje->label('id','# Pedido');
+
+        /* Listas de opciones */
+        $follaje->change_type('estatus','select','black,white',array('values'=>'Cotizado'));
+        $follaje->change_type('unidad','select','black,white',array('values'=>'Pieza,Caja,Paquete'));
 
         /* calculos chinos Follaje*/
         $follaje->before_insert('calculosChinosFollaje');

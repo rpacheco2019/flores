@@ -187,7 +187,7 @@ function calculosChinos($postdata,$xcrud){
 
 }
 
-function setConfirmado($postdata,$primary,$xcrud){
+/* function setConfirmado($postdata,$primary,$xcrud){
     
     $estatusOrden = $postdata->get('estatus');
 
@@ -196,7 +196,7 @@ function setConfirmado($postdata,$primary,$xcrud){
         $db->query('UPDATE registroflores SET estatus="' .$estatusOrden. '" WHERE idRegistro = ' . $primary);
     }
 
-}
+} */
 
 function automata($postdata,$primary,$xcrud){
     
@@ -205,6 +205,7 @@ function automata($postdata,$primary,$xcrud){
     if($estatusOrden == "Confirmado"){
         $db = Xcrud_db::get_instance();
         $db->query('UPDATE registroflores SET estatus="' .$estatusOrden. '" WHERE idRegistro = ' . $primary);
+        $db->query('UPDATE follaje SET estatus="' .$estatusOrden. '" WHERE idOrden = ' . $primary);
     }
 
     $nuevaCantidadArticulos = $postdata->get('cantidadItem');
