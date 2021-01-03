@@ -5,5 +5,5 @@ deployment:
     - /bin/cp -R control $DEPLOYPATH
     - /bin/cp -R uploads $DEPLOYPATH
     - /bin/cp -R vistas $DEPLOYPATH
-    - /bin/cp -R xcrud/functions.php $DEPLOYPATH
-    - /bin/cp -R index.php $DEPLOYPATH
+    - /bin/cp  xcrud/functions.php $DEPLOYPATH
+    - /bin/cp  index.php $DEPLOYPATH
