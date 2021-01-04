@@ -71,7 +71,7 @@ if(@!$_SESSION['usuario']){
             $xcrud->modal('registroevento.imagen');
 
         /* Lista de opciones de solicitud para compras */
-        $xcrud->change_type('estatus','select','black,white',array('values'=>'-,Pedido,Entregado,Cancelado'));
+        $xcrud->change_type('estatus','select','black,white',array('values'=>'-,Pedido,Entregado,Cancelado,Incompleto'));
 
         /* Proveedores para cambio en compras */
         $xcrud->change_type('registroflores.proveedor','select','black,white',array(
@@ -89,6 +89,7 @@ if(@!$_SESSION['usuario']){
         
         /* No puede modificar despues de poner entregado */
         $xcrud->unset_edit(true,'estatus','=','Entregado');
+        $xcrud->unset_edit(true,'estatus','=','Incompleto');
 
         /*-------------------------- Tabla de Otros y Follajes ----------------------------------*/
         $comprasOtros= Xcrud::get_instance()->table('follaje')->unset_remove()->unset_add();
@@ -123,7 +124,7 @@ if(@!$_SESSION['usuario']){
         $comprasOtros->readonly('id,idOrden,item,unidad,cantidad,precioUnitario,presupuestoTotal,notas,registroevento.estatus,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,registroevento.cantidadItem');
         
         /* Lista de opciones de solicitud para compras */
-        $comprasOtros->change_type('estatus','select','black,white',array('values'=>'-,Pedido,Entregado,Cancelado'));
+        $comprasOtros->change_type('estatus','select','black,white',array('values'=>'-,Pedido,Entregado,Cancelado,Incompleto'));
 
         /* Highligt */
         $comprasOtros->highlight('estatus','=','Pedido','#fa9973');
@@ -131,6 +132,10 @@ if(@!$_SESSION['usuario']){
         $comprasOtros->highlight('estatus','=','Cancelado','#f7cdf3');
         $comprasOtros->highlight('estatus','=','Cotizado','#ebe9e4');
         $comprasOtros->highlight('estatus','=','Solicitado','#f5c651');
+
+        /* No puede modificar despues de poner entregado */
+        $comprasOtros->unset_edit(true,'estatus','=','Entregado');
+        $comprasOtros->unset_edit(true,'estatus','=','Incompleto');
 
         require("../vistas/views/compras.view.php");
 
