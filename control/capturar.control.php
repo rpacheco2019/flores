@@ -30,7 +30,7 @@ if(@!$_SESSION['usuario']){
         $xcrud->disabled('folioEP,fechaEvento,hotel,nombreItem,descripcionItem,user,stamp','edit');
 
         /* Mapeo de columnas */
-        $xcrud->columns('id,estatus,folioEP,fechaEvento,cantidadItem,nombreItem,Presupuesto,Otros,stamp,imagen');
+        $xcrud->columns('id,estatus,tipo,folioEP,fechaEvento,cantidadItem,nombreItem,Presupuesto,Otros,stamp,imagen');
 
         /* Quitar numero de fila */
         $xcrud->unset_numbers();
@@ -60,11 +60,14 @@ if(@!$_SESSION['usuario']){
 
         /* Highlight */
         $xcrud->highlight('estatus','=','Confirmado','#86f584');
+        $xcrud->highlight('estatus','=','Rechazado','#f7abe5');
+        $xcrud->highlight('tipo','=','Urgente','#ff8645');
 
         $xcrud->unset_edit(true,'estatus','=','Confirmado');
 
         /* Listas de campos */
-        $xcrud->change_type('estatus','select','black,white',array('values'=>'Cotizado,Confirmado'));
+        $xcrud->change_type('estatus','select','black,white',array('values'=>'Cotizado,Confirmado,Rechazado'));
+        $xcrud->change_type('tipo','select','black,white',array('values'=>'Normal,Urgente'));
 
         /* Cambiar nombre de la tabla */
         $xcrud->table_name('Ordenes de producción floral');
@@ -85,6 +88,9 @@ if(@!$_SESSION['usuario']){
 
         /* Funciones */
         $xcrud->after_update('automata');
+
+        /* Boton de imprimir responsiva */
+        $xcrud->button('../imprimir.php?id={id}','Imprimir responsiva','icon-print','',array('target'=>'_blank'));
      
 
         /* -----------------TABLA DE FLORES ------------- */

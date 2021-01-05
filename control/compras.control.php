@@ -21,7 +21,7 @@ if(@!$_SESSION['usuario']){
         $xcrud->where('estatus !=','Cotizado');
 
         /* Columnas a mostrar */
-        $xcrud->columns('idItem,idRegistro,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,flor,color,unidad,cantidadFlor,cantidadTotal,precio,precioTotal,proveedor,estatus');
+        $xcrud->columns('idItem,idRegistro,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,flor,color,unidad,cantidadFlor,cantidadTotal,precio,precioTotal,proveedor,estatus,registroevento.tipo');
 
         /* Cambiar nombres a las columnas */
         $xcrud->label('idItem','Pedido');
@@ -45,9 +45,10 @@ if(@!$_SESSION['usuario']){
         $xcrud->highlight('estatus','=','Cancelado','#f7cdf3');
         $xcrud->highlight('estatus','=','Cotizado','#ebe9e4');
         $xcrud->highlight('estatus','=','Solicitado','#f5c651');
+        $xcrud->highlight('registroevento.tipo','=','Urgente','#ff8645');
 
         /* Campos de solo lectura */
-        $xcrud->readonly('idItem,idRegistro,flor,color,unidad,cantidadFlor,cantidadTotal,precioPorFlor,precio,precioTotal,user,stamp,registroevento.estatus,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,registroevento.hotel,registroevento.cantidadItem,registroevento.descripcionItem,registroevento.comentarioItem,registroevento.imagen,registroevento.user,registroevento.stamp');
+        $xcrud->readonly('idItem,idRegistro,flor,color,unidad,cantidadFlor,cantidadTotal,precioPorFlor,precio,precioTotal,user,stamp,registroevento.estatus,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,registroevento.hotel,registroevento.cantidadItem,registroevento.descripcionItem,registroevento.comentarioItem,registroevento.imagen,registroevento.user,registroevento.stamp,registroevento.tipo');
 
         /* Quitar numero de fila */
         /* $xcrud->unset_numbers(); */
@@ -118,10 +119,10 @@ if(@!$_SESSION['usuario']){
         /* $comprasOtros->unset_numbers(); */    
         
         /* Mapeo de columnas */
-        $comprasOtros->columns('id,idOrden,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,item,cantidad,unidad,precioUnitario,presupuestoTotal,estatus');
+        $comprasOtros->columns('id,idOrden,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,item,cantidad,unidad,precioUnitario,presupuestoTotal,estatus,registroevento.tipo');
         
         /* Campos de solo lectura */
-        $comprasOtros->readonly('id,idOrden,item,unidad,cantidad,precioUnitario,presupuestoTotal,notas,registroevento.estatus,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,registroevento.cantidadItem');
+        $comprasOtros->readonly('id,idOrden,item,unidad,cantidad,precioUnitario,presupuestoTotal,notas,registroevento.estatus,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,registroevento.cantidadItem,registroevento.tipo');
         
         /* Lista de opciones de solicitud para compras */
         $comprasOtros->change_type('estatus','select','black,white',array('values'=>'-,Pedido,Entregado,Cancelado,Incompleto'));
@@ -132,6 +133,7 @@ if(@!$_SESSION['usuario']){
         $comprasOtros->highlight('estatus','=','Cancelado','#f7cdf3');
         $comprasOtros->highlight('estatus','=','Cotizado','#ebe9e4');
         $comprasOtros->highlight('estatus','=','Solicitado','#f5c651');
+        $comprasOtros->highlight('registroevento.tipo','=','Urgente','#ff8645');
 
         /* No puede modificar despues de poner entregado */
         $comprasOtros->unset_edit(true,'estatus','=','Entregado');
