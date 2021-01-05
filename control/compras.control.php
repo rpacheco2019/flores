@@ -43,8 +43,8 @@ if(@!$_SESSION['usuario']){
         $xcrud->highlight('estatus','=','Pedido','#fa9973');
         $xcrud->highlight('estatus','=','Entregado','#86f584');
         $xcrud->highlight('estatus','=','Cancelado','#f7cdf3');
-        $xcrud->highlight('estatus','=','Cotizado','#ebe9e4');
-        $xcrud->highlight('estatus','=','Solicitado','#f5c651');
+        $xcrud->highlight('estatus','=','Confirmado','#ebe9e4');
+        $xcrud->highlight('estatus','=','Incompleto','#f7f497');
         $xcrud->highlight('registroevento.tipo','=','Urgente','#ff8645');
 
         /* Campos de solo lectura */
@@ -90,7 +90,7 @@ if(@!$_SESSION['usuario']){
         
         /* No puede modificar despues de poner entregado */
         $xcrud->unset_edit(true,'estatus','=','Entregado');
-        $xcrud->unset_edit(true,'estatus','=','Incompleto');
+        
 
         /*-------------------------- Tabla de Otros y Follajes ----------------------------------*/
         $comprasOtros= Xcrud::get_instance()->table('follaje')->unset_remove()->unset_add();
@@ -131,13 +131,12 @@ if(@!$_SESSION['usuario']){
         $comprasOtros->highlight('estatus','=','Pedido','#fa9973');
         $comprasOtros->highlight('estatus','=','Entregado','#86f584');
         $comprasOtros->highlight('estatus','=','Cancelado','#f7cdf3');
-        $comprasOtros->highlight('estatus','=','Cotizado','#ebe9e4');
-        $comprasOtros->highlight('estatus','=','Solicitado','#f5c651');
+        $comprasOtros->highlight('estatus','=','Confirmado','#ebe9e4');
+        $comprasOtros->highlight('estatus','=','Incompleto','#f7f497');
         $comprasOtros->highlight('registroevento.tipo','=','Urgente','#ff8645');
 
         /* No puede modificar despues de poner entregado */
         $comprasOtros->unset_edit(true,'estatus','=','Entregado');
-        $comprasOtros->unset_edit(true,'estatus','=','Incompleto');
 
         require("../vistas/views/compras.view.php");
 
