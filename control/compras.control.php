@@ -24,16 +24,24 @@ if(@!$_SESSION['usuario']){
         $xcrud->columns('idItem,idRegistro,registroevento.folioEP,registroevento.fechaEvento,registroevento.nombreItem,flor,color,unidad,cantidadFlor,cantidadTotal,precio,precioTotal,proveedor,estatus,registroevento.tipo');
 
         /* Cambiar nombres a las columnas */
-        $xcrud->label('idItem','Pedido');
-        $xcrud->label('idRegistro','Orden');
+        //Tabla de flores
+        $xcrud->label('idItem','# Pedido');
+        $xcrud->label('idRegistro','# Orden');
+        $xcrud->label('precioPorFlor','Precio por flor');
         $xcrud->label('registroevento.folioEP','Folio EP');
-        $xcrud->label('registroevento.fechaEvento','Fecha de evento');
-        $xcrud->label('registroevento.nombreItem','Articulo');
+        $xcrud->label('user','Pedido Creado por');
+        $xcrud->label('stamp','Pedido Creado en');
+        $xcrud->label('estatus','Estatus Pedido');
         $xcrud->label('cantidadItem','Unidades');
         $xcrud->label('cantidadFlor','Flores por Item');
         $xcrud->label('cantidadTotal','Flores totales');
         $xcrud->label('precio','Precio por Item');
         $xcrud->label('precioTotal','Precio Total');
+
+        //Tabla Eventos
+        $xcrud->label('registroevento.fechaEvento','Fecha de evento');
+        $xcrud->label('registroevento.nombreItem','Articulo');
+        $xcrud->label('registroevento.estatus','Estatus Evento');
 
         /* Validaciones */
         $xcrud->validation_required('proveedor',2);
@@ -102,14 +110,21 @@ if(@!$_SESSION['usuario']){
         $comprasOtros->table_name('Follaje y Otros');
 
         /* Cambiar nombres a las columnas */
-        $comprasOtros->label('id','Pedido');
-        $comprasOtros->label('idOrden','Orden');
-        $comprasOtros->label('registroevento.folioEP','Folio EP');
-        $comprasOtros->label('registroevento.fechaEvento','Fecha de evento');
-        $comprasOtros->label('registroevento.nombreItem','Articulo');
+        //tabla Follaje
+        $comprasOtros->label('id','# Pedido');
+        $comprasOtros->label('idOrden','# Orden');
         $comprasOtros->label('item','Follaje/Otro');
+        $comprasOtros->label('user','Creado por');
+        $comprasOtros->label('stamp','Creado en');
         $comprasOtros->label('precioUnitario','Precio Unitario');
         $comprasOtros->label('presupuestoTotal','Presupuesto Total');
+        //tabla Evento
+        $comprasOtros->label('registroevento.fechaEvento','Fecha de evento');
+        $comprasOtros->label('registroevento.nombreItem','Articulo');
+        $comprasOtros->label('registroevento.folioEP','Folio EP');
+        $comprasOtros->label('registroevento.stamp','Evento creado en');
+        $comprasOtros->label('registroevento.usuario','Evento creado por');
+
 
         /* Mostrar ID en campos */
         $comprasOtros->show_primary_ai_field(true);
