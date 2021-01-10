@@ -41,7 +41,7 @@
                   <p>Nuevo registro</p>
                 </a>
               </li>
-              <?php if($_SESSION['tipo'] != 'operador'){ ?>
+              <?php if($_SESSION['mod2'] != 0){ ?>
               <li class="nav-item">
                 <a href="../control/compras.control.php" class="nav-link">
                   <i class="fas fa-book nav-icon"></i>

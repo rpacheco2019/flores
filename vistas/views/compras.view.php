@@ -41,7 +41,7 @@
             <!-- /.card-header -->
             <div class="card-body">
               <div class="table-responsive">
-                <?php echo $xcrud; ?>
+                <?php echo $TablaCompras; ?>
               </div>
               <!-- Div table responsive -->
             </div>
@@ -55,7 +55,7 @@
             <!-- /.card-header -->
             <div class="card-body">
               <div class="table-responsive">
-                <?php echo $comprasOtros; ?>
+                <?php echo $TablaComprasOtros; ?>
               </div>
               <!-- Div table responsive -->
             </div>
